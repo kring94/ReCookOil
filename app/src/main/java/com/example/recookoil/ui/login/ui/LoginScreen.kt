@@ -46,20 +46,32 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
     } else {
         Column(modifier = modifier) {
             HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(12.dp))
             EmailField(email) { viewModel.onLoginChanged(it, password) }
             Spacer(modifier = Modifier.padding(4.dp))
             PasswordField(password) {viewModel.onLoginChanged(email, it)}
             Spacer(modifier = Modifier.padding(8.dp))
             ForgotPassword(Modifier.align(Alignment.End))
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(12.dp))
             LoginButton(loginEnable) {
                 coroutineScope.launch {
                     viewModel.onLoginSelected()}
                 }
+            Spacer(modifier = Modifier.padding(4.dp))
+            SingUp(Modifier.align(Alignment.CenterHorizontally))
         }
     }
 
+}
+
+@Composable
+fun SingUp(modifier: Modifier) {
+    Text(
+        text = "Registrarse",
+        modifier = modifier.clickable { },
+        fontSize = 14.sp,
+        color = PrimaryDark
+    )
 }
 
 @Composable
