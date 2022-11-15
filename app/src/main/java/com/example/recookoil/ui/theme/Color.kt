@@ -7,6 +7,7 @@ val PrimaryDisable = Color(0xFFA9BE70)
 val PrimaryDark = Color(0xff608f00)
 val PrimaryLight = Color(0xffc7f357)
 val Secondary = Color(0xffef9d01)
+val SecondaryDisable = Color(0xFFE9B85C)
 val SecondaryDark = Color(0xffb76f00)
 val SecondaryLight = Color(0xffffce48)
 

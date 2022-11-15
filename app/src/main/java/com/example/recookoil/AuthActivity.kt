@@ -11,7 +11,7 @@ import com.example.recookoil.ui.login.ui.LoginScreen
 import com.example.recookoil.ui.login.ui.LoginViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
 
-class MainActivity : ComponentActivity() {
+class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen(LoginViewModel())
+                    LoginScreen(LoginViewModel(), this)
                 }
             }
         }
