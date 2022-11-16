@@ -1,11 +1,11 @@
 package com.example.recookoil.ui.login.ui
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -14,11 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import com.example.recookoil.HomeActivity
 import com.example.recookoil.R
 import com.example.recookoil.ui.theme.*
 import com.google.firebase.auth.FirebaseAuth
@@ -62,6 +63,8 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
                         Toast.makeText(context, "Login exitoso!!", Toast.LENGTH_SHORT).show()
+                        val navigate = Intent(context,HomeActivity::class.java)
+                        context.startActivity(navigate)
                     } else {
                         Toast.makeText(context, "Login no exitoso!!", Toast.LENGTH_SHORT).show()
                     }
