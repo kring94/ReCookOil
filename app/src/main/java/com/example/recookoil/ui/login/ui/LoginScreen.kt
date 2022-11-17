@@ -153,11 +153,3 @@ fun HeaderImage(modifier: Modifier) {
     )
 }
 
-@Composable
-fun BottomBar(){
-    MaterialTheme{
-        FloatingActionButton(onClick = { /*TODO*/ }) {
-
-        }
-    }
-}
