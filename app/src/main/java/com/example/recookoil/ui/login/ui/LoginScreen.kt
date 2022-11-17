@@ -2,12 +2,15 @@ package com.example.recookoil.ui.login.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -71,15 +74,8 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
                 }
             }
             Spacer(modifier = Modifier.padding(4.dp))
-            SignUp(loginEnable) {
-                //Create user with FireBase
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(context, "Registro exitoso!!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "Registro no exitoso!!", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            SignUp(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+
             }
         }
     }
@@ -87,17 +83,13 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
 }
 
 @Composable
-fun SignUp(loginEnable: Boolean, onLoginSelected: () -> Unit) {
-    Button(
-        onClick = { onLoginSelected() }, modifier = Modifier
-            .fillMaxWidth()
-            .height(48.dp), colors = ButtonDefaults.buttonColors(
-            backgroundColor = Secondary, disabledBackgroundColor = SecondaryDisable, contentColor = Color.White, disabledContentColor = Color.White
-        ),
-        enabled = loginEnable
-    ) {
-        Text(text = "Registrarse")
-    }
+fun SignUp(modifier: Modifier, onLoginSelected: () -> Unit) {
+    Text(
+        text = "Registrarse",
+        modifier = modifier.clickable(onClick =  { onLoginSelected() }),
+        fontSize = 12.sp,
+        color = SecondaryDark
+    )
 }
 
 @Composable
@@ -159,4 +151,13 @@ fun HeaderImage(modifier: Modifier) {
         contentDescription = "Header image",
         modifier = modifier
     )
+}
+
+@Composable
+fun BottomBar(){
+    MaterialTheme{
+        FloatingActionButton(onClick = { /*TODO*/ }) {
+
+        }
+    }
 }

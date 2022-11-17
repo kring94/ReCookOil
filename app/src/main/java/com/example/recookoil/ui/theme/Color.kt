@@ -11,5 +11,7 @@ val SecondaryDisable = Color(0xFFE9B85C)
 val SecondaryDark = Color(0xffb76f00)
 val SecondaryLight = Color(0xffffce48)
 
+val White = Color(0xffffffff)
+
 val Gray = Color(0xffe0e0e0)
 val DarkGray = Color(0xffaeaeae)

@@ -3,14 +3,10 @@ package com.example.recookoil
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.recookoil.ui.home.ui.HomeScreen
+import com.example.recookoil.ui.home.PrincipalScreen
 import com.example.recookoil.ui.theme.ReCookOilTheme
 
 class HomeActivity : ComponentActivity() {
@@ -23,10 +19,11 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen()
+                    PrincipalScreen(this@HomeActivity)
                 }
             }
         }
     }
 }
+
 
