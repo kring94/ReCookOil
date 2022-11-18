@@ -14,14 +14,8 @@ class SignupViewModel {
     private val _name = MutableLiveData<String>()
     val name : LiveData<String> = _name
 
-    private val _secondName = MutableLiveData<String>()
-    val secondName: LiveData<String> = _secondName
-
     private val _lastName = MutableLiveData<String>()
     val lastName : LiveData<String> = _lastName
-
-    private val _secondLastName = MutableLiveData<String>()
-    val secondLastName : LiveData<String> = _secondLastName
 
     private val _identification = MutableLiveData<String>()
     val identification : LiveData<String> = _identification
@@ -72,7 +66,7 @@ class SignupViewModel {
 
     private fun isValidIdentification(identification: String): Boolean = identification.length>3
 
-    private fun isValidPhoneNumber(number: String): Boolean = number.length>10
+    private fun isValidPhoneNumber(number: String): Boolean = number.length>9
 
     private fun isValidAddress(address: String): Boolean = address.length>10
 }

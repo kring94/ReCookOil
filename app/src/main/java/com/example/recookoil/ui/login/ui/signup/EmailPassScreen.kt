@@ -1,5 +1,7 @@
 package com.example.recookoil.ui.login.ui.signup
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,23 +19,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
+import com.example.recookoil.Signup3Activity
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 
 @Composable
-fun EmailPassScreen(viewModel: SignupViewModel){
+fun EmailPassScreen(viewModel: SignupViewModel, context: Context){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        EmailPass(modifier = Modifier.align(Alignment.Center), viewModel = viewModel)
+        EmailPass(modifier = Modifier.align(Alignment.Center), viewModel = viewModel, context)
     }
 }
 
 @Composable
-fun EmailPass(modifier: Modifier, viewModel: SignupViewModel){
+fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val emailPassOK: Boolean by viewModel.emailPassOK.observeAsState(initial = false)
@@ -57,6 +61,7 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel){
         Spacer(modifier = Modifier.padding(4.dp))
         OnEmailPassButton(emailPassOK = emailPassOK) {
             //TODO implementación para navegar a la proxima ventana
+            context.startActivity(Intent(context, AuthActivity::class.java))
         }
     }
 }
@@ -107,6 +112,6 @@ fun OnEmailPassButton(emailPassOK: Boolean, onLoginSelected: () -> Unit) {
         ),
         enabled = emailPassOK
     ) {
-        Text(text = "Siguiente")
+        Text(text = "Finalizar")
     }
 }

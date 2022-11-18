@@ -21,9 +21,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.compose.rememberNavController
 import com.example.recookoil.HomeActivity
 import com.example.recookoil.R
+import com.example.recookoil.SignupActivity
 import com.example.recookoil.ui.theme.*
 import com.google.firebase.auth.FirebaseAuth
 
@@ -46,6 +47,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
     val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
 
+    val navController = rememberNavController()
 
     if (isLoading) {
         Box(Modifier.fillMaxSize()) {
@@ -75,7 +77,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
             }
             Spacer(modifier = Modifier.padding(4.dp))
             SignUp(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-
+                context.startActivity(Intent(context, SignupActivity::class.java))
             }
         }
     }
@@ -88,7 +90,7 @@ fun SignUp(modifier: Modifier, onLoginSelected: () -> Unit) {
         text = "Registrarse",
         modifier = modifier.clickable(onClick =  { onLoginSelected() }),
         fontSize = 12.sp,
-        color = SecondaryDark
+        color = PrimaryDark
     )
 }
 

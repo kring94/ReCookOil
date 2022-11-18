@@ -1,5 +1,7 @@
 package com.example.recookoil.ui.login.ui.signup
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,61 +12,52 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.R
-import com.example.recookoil.ui.theme.Primary
-import com.example.recookoil.ui.theme.PrimaryDisable
+import com.example.recookoil.Signup2Activity
+import com.example.recookoil.SignupActivity
+import com.example.recookoil.ui.theme.*
 
 @Composable
-fun NameIdentificationScreen(viewModel: SignupViewModel){
+fun NameIdentificationScreen(viewModel: SignupViewModel,context: Context){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        NameIdentification(modifier = Modifier, viewModel = viewModel)
+        NameIdentification(modifier = Modifier, viewModel = viewModel, context)
     }
 }
 
 @Composable
-fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel){
+fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: Context){
     val name: String by viewModel.name.observeAsState("")
-    val secondName: String by viewModel.secondName.observeAsState("")
     val lastName: String by viewModel.lastName.observeAsState("")
-    val secondLastName: String by viewModel.secondLastName.observeAsState("")
     val identification: String by viewModel.identification.observeAsState("")
     val nameIdentificationOK: Boolean by viewModel.nameIdentificationOK.observeAsState(false)
     Column(modifier = Modifier) {
-        HeaderImageNameIdentification(modifier = Modifier)
-        Spacer(modifier = Modifier.padding(12.dp))
-        Row(modifier = Modifier) {
-            NameField(name = name){
-                viewModel.onNameIdentificationChanged(it,lastName,identification)
-            }
-            SecondNameField(second = secondName){
-                viewModel.onNameIdentificationChanged(name,lastName, identification)
-            }
+        HeaderImageNameIdentification(modifier = Modifier.align(Alignment.CenterHorizontally))
+        Spacer(modifier = Modifier.padding(8.dp))
+        NameField(name = name){
+            viewModel.onNameIdentificationChanged(it,lastName,identification)
         }
         Spacer(modifier = Modifier.padding(4.dp))
-        Row(modifier = Modifier) {
-            LastNameField(lastName = lastName){
-                viewModel.onNameIdentificationChanged(name,it, identification)
-            }
-            SecondLastNameField(second = secondLastName){
-                viewModel.onNameIdentificationChanged(name,lastName, identification)
-            }
+        LastNameField(lastName = lastName){
+            viewModel.onNameIdentificationChanged(name,it, identification)
         }
         Spacer(modifier = Modifier.padding(4.dp))
         IdentificationField(identification = identification){
             viewModel.onNameIdentificationChanged(name,lastName, it)
         }
-        Spacer(modifier = Modifier.padding(4.dp))
+        Spacer(modifier = Modifier.padding(12.dp))
         OnNameIdentificationButton(nameIdentificationOK){
             //TODO implementación para navegar a la proxima ventana
+            context.startActivity(Intent(context, Signup2Activity::class.java))
         }
     }
 }
@@ -84,52 +77,28 @@ fun NameField(name: String, onTextFieldChanged: (String) -> Unit) {
     OutlinedTextField(value = name,
         onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Nombre") },
+        placeholder = { Text(text = "Nombres") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         singleLine = true,
         maxLines = 1,
-        label = { Text("Nombre") }
+        label = { Text("Nombres") }
     )
 }
 
-@Composable
-fun SecondNameField(second: String, onTextFieldChanged: (String) -> Unit) {
-    OutlinedTextField(value = second,
-        onValueChange = { onTextFieldChanged(it) },
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Segundo nombre") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        singleLine = true,
-        maxLines = 1,
-        label = { Text("Segundo nombre") }
-    )
-}
 
 @Composable
 fun LastNameField(lastName: String, onTextFieldChanged: (String) -> Unit) {
     OutlinedTextField(value = lastName,
         onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Apellido") },
+        placeholder = { Text(text = "Apellidos") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         singleLine = true,
         maxLines = 1,
-        label = { Text("Apellido") }
+        label = { Text("Apellidos") }
     )
 }
 
-@Composable
-fun SecondLastNameField(second: String, onTextFieldChanged: (String) -> Unit) {
-    OutlinedTextField(value = second,
-        onValueChange = { onTextFieldChanged(it) },
-        modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Segundo apellido") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        singleLine = true,
-        maxLines = 1,
-        label = { Text("Segundo apellido") }
-    )
-}
 
 @Composable
 fun IdentificationField(identification: String, onTextFieldChanged: (String) -> Unit) {

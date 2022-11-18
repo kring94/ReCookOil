@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ReCookOil</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signup2">Signup2Activity</string>
+    <string name="title_activity_signup3">Signup3Activity</string>
 </resources>

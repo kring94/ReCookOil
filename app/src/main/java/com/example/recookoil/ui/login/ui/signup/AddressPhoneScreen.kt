@@ -1,5 +1,7 @@
 package com.example.recookoil.ui.login.ui.signup
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,47 +12,49 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.R
+import com.example.recookoil.Signup3Activity
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 
 @Composable
-fun AddressPhoneScreen(viewModel: SignupViewModel){
+fun AddressPhoneScreen(viewModel: SignupViewModel, context: Context){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        AddressPhone(modifier = Modifier, viewModel = viewModel)
+        AddressPhone(modifier = Modifier, viewModel = viewModel, context)
     }
 }
 
 
 @Composable
-fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel){
+fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Context){
     val address: String by viewModel.address.observeAsState("")
     val phoneNumber: String by viewModel.phoneNumber.observeAsState("")
     val addressPhoneOK: Boolean by viewModel.addressPhoneOK.observeAsState(false)
 
     Column(modifier = Modifier) {
-        HeaderAddressPhoneImage(modifier = Modifier)
+        HeaderAddressPhoneImage(modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.padding(12.dp))
         PhoneNumberField(phoneNumber = phoneNumber){
-
+            viewModel.onAddressPhoneChanged(it, address)
         }
         Spacer(modifier = Modifier.padding(4.dp))
         AddressField(address = address){
-
+            viewModel.onAddressPhoneChanged(phoneNumber, it)
         }
         Spacer(modifier = Modifier.padding(12.dp))
         OnAddressPhoneButton(signupEnable = addressPhoneOK) {
             //TODO implementación para navegar a la proxima ventana
+            context.startActivity(Intent(context, Signup3Activity::class.java))
         }
     }
 }

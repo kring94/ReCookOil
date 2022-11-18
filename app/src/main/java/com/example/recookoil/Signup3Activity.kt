@@ -1,0 +1,33 @@
+package com.example.recookoil
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.recookoil.ui.login.ui.signup.EmailPassScreen
+import com.example.recookoil.ui.login.ui.signup.SignupViewModel
+import com.example.recookoil.ui.theme.ReCookOilTheme
+
+class Signup3Activity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ReCookOilTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    EmailPassScreen(viewModel = SignupViewModel(),this@Signup3Activity)
+                }
+            }
+        }
+    }
+}
+
