@@ -2,15 +2,12 @@ package com.example.recookoil.ui.login.ui
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -21,7 +18,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import com.example.recookoil.HomeActivity
 import com.example.recookoil.R
 import com.example.recookoil.SignupActivity
@@ -46,8 +42,6 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
-
-    val navController = rememberNavController()
 
     if (isLoading) {
         Box(Modifier.fillMaxSize()) {
@@ -89,7 +83,7 @@ fun SignUp(modifier: Modifier, onLoginSelected: () -> Unit) {
     Text(
         text = "Registrarse",
         modifier = modifier.clickable(onClick =  { onLoginSelected() }),
-        fontSize = 12.sp,
+        fontSize = 16.sp,
         color = PrimaryDark
     )
 }

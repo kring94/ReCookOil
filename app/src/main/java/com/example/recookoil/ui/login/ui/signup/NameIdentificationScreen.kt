@@ -56,7 +56,7 @@ fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: 
         IdentificationField(identification = identification){
             viewModel.onNameIdentificationChanged(name,lastName, it)
         }
-        Spacer(modifier = Modifier.padding(12.dp))
+        Spacer(modifier = Modifier.padding(16.dp))
         OnNameIdentificationButton(nameIdentificationOK){
             //TODO implementación para navegar a la proxima ventana
             navigateAddressPhone()

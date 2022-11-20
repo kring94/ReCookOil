@@ -4,8 +4,12 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 class LoginViewModel: ViewModel() {
+
     private val _email = MutableLiveData<String>()
     val email : LiveData<String> = _email
 

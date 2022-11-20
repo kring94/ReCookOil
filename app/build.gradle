@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services' //Firebase
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -64,13 +66,23 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
+    //Firebase
     implementation platform('com.google.firebase:firebase-bom:31.0.3') //Firebase
     implementation 'com.google.firebase:firebase-analytics-ktx'//Firebase analytics
     implementation 'com.google.firebase:firebase-auth-ktx'//Firebase authentication
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'//Firebase Realdatabase
+    implementation 'com.google.firebase:firebase-firestore-ktx'//FireStore
 
+    //Dagger hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.5.3")
 
 
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
 }

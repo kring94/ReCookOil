@@ -1,9 +1,6 @@
 package com.example.recookoil.ui.login.ui.signup
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -53,7 +50,7 @@ fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Contex
         AddressField(address = address){
             viewModel.onAddressPhoneChanged(phoneNumber, it)
         }
-        Spacer(modifier = Modifier.padding(12.dp))
+        Spacer(modifier = Modifier.padding(16.dp))
         OnAddressPhoneButton(signupEnable = addressPhoneOK) {
 
             //TODO implementación para navegar a la proxima ventana

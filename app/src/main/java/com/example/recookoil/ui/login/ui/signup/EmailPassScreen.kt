@@ -3,6 +3,7 @@ package com.example.recookoil.ui.login.ui.signup
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,11 +23,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
+import com.example.recookoil.ui.home.HomeViewModel
+import com.example.recookoil.ui.login.ui.EmailField
+import com.example.recookoil.ui.login.ui.HeaderImage
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 @Composable
 fun EmailPassScreen(viewModel: SignupViewModel, context: Context){
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -39,6 +46,8 @@ fun EmailPassScreen(viewModel: SignupViewModel, context: Context){
 
 @Composable
 fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
+
+
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val emailPassOK: Boolean by viewModel.emailPassOK.observeAsState(initial = false)
@@ -59,10 +68,42 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
                 it
             )
         }
-        Spacer(modifier = Modifier.padding(4.dp))
+        Spacer(modifier = Modifier.padding(16.dp))
         OnEmailPassButton(emailPassOK = emailPassOK) {
             //TODO implementación para navegar a la proxima ventana
-            context.startActivity(Intent(context, AuthActivity::class.java))
+            val name = viewModel.name.value.toString()
+            val lastname = viewModel.lastName.value.toString()
+            val identification = viewModel.identification.value.toString()
+            val phoneNumber = viewModel.phoneNumber.value.toString()
+            val address = viewModel.address.value.toString()
+
+            val dataUser = mapOf(
+                "Name" to name,
+                "Lastname" to lastname,
+                "Address" to address,
+                "Identification" to identification,
+                "PhoneNumber" to phoneNumber,
+                "Email" to email
+            )
+
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if(it.isSuccessful){
+                    val id = FirebaseAuth.getInstance().currentUser!!.uid
+                    FirebaseDatabase.getInstance().reference
+                        .child("Users")
+                        .child(id)
+                        .setValue(dataUser).addOnCompleteListener { data ->
+                            if(data.isSuccessful){
+                                Toast.makeText(context, "Registro exitoso, igresa tus datos para ingresar", Toast.LENGTH_SHORT).show()
+                                context.startActivity(Intent(context, AuthActivity::class.java))
+                            } else {
+                                Toast.makeText(context, "Algo salio mal, vuelve a intentarlo...", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(context, "Algo salio mal, vuelve a intentarlo...", Toast.LENGTH_SHORT).show()
+                }
+            }
 
         }
     }
