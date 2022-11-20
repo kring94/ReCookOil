@@ -1,7 +1,6 @@
 package com.example.recookoil.ui.login.ui.signup
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,23 +18,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.R
-import com.example.recookoil.Signup2Activity
-import com.example.recookoil.SignupActivity
 import com.example.recookoil.ui.theme.*
 
+
 @Composable
-fun NameIdentificationScreen(viewModel: SignupViewModel,context: Context){
+fun NameIdentificationScreen(
+    viewModel: SignupViewModel,
+    context: Context,
+    navigateAddressPhone: () -> Unit
+){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        NameIdentification(modifier = Modifier, viewModel = viewModel, context)
+        NameIdentification(modifier = Modifier, viewModel = viewModel, context, navigateAddressPhone)
     }
 }
 
 @Composable
-fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: Context){
+fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: Context, navigateAddressPhone: () -> Unit){
     val name: String by viewModel.name.observeAsState("")
     val lastName: String by viewModel.lastName.observeAsState("")
     val identification: String by viewModel.identification.observeAsState("")
@@ -57,7 +59,7 @@ fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: 
         Spacer(modifier = Modifier.padding(12.dp))
         OnNameIdentificationButton(nameIdentificationOK){
             //TODO implementación para navegar a la proxima ventana
-            context.startActivity(Intent(context, Signup2Activity::class.java))
+            navigateAddressPhone()
         }
     }
 }

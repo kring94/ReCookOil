@@ -2,6 +2,8 @@ package com.example.recookoil.ui.login.ui.signup
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,24 +21,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.R
-import com.example.recookoil.Signup3Activity
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 
 @Composable
-fun AddressPhoneScreen(viewModel: SignupViewModel, context: Context){
+fun AddressPhoneScreen(viewModel: SignupViewModel, context: Context,
+                       navigateEmailPassScreen: () -> Unit){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        AddressPhone(modifier = Modifier, viewModel = viewModel, context)
+        AddressPhone(modifier = Modifier, viewModel = viewModel, context, navigateEmailPassScreen)
     }
 }
 
 
 @Composable
-fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Context){
+fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Context, navigateEmailPassScreen: () -> Unit){
     val address: String by viewModel.address.observeAsState("")
     val phoneNumber: String by viewModel.phoneNumber.observeAsState("")
     val addressPhoneOK: Boolean by viewModel.addressPhoneOK.observeAsState(false)
@@ -53,8 +55,9 @@ fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Contex
         }
         Spacer(modifier = Modifier.padding(12.dp))
         OnAddressPhoneButton(signupEnable = addressPhoneOK) {
+
             //TODO implementación para navegar a la proxima ventana
-            context.startActivity(Intent(context, Signup3Activity::class.java))
+            navigateEmailPassScreen()
         }
     }
 }

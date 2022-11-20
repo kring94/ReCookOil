@@ -4,8 +4,6 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.delay
 
 class LoginViewModel: ViewModel() {
     private val _email = MutableLiveData<String>()

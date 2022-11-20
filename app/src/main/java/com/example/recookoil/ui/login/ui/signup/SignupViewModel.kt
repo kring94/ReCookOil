@@ -3,8 +3,9 @@ package com.example.recookoil.ui.login.ui.signup
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class SignupViewModel {
+class SignupViewModel: ViewModel() {
     private val _email = MutableLiveData<String>()
     val email : LiveData<String> = _email
 

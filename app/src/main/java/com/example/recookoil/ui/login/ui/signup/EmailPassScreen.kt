@@ -2,6 +2,7 @@ package com.example.recookoil.ui.login.ui.signup
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,7 +22,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
-import com.example.recookoil.Signup3Activity
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 
@@ -33,6 +33,7 @@ fun EmailPassScreen(viewModel: SignupViewModel, context: Context){
             .padding(16.dp)
     ){
         EmailPass(modifier = Modifier.align(Alignment.Center), viewModel = viewModel, context)
+        Log.d("Name", viewModel.name.value.toString())
     }
 }
 
@@ -62,6 +63,7 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
         OnEmailPassButton(emailPassOK = emailPassOK) {
             //TODO implementación para navegar a la proxima ventana
             context.startActivity(Intent(context, AuthActivity::class.java))
+
         }
     }
 }
