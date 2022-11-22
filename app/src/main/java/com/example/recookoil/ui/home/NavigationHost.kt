@@ -9,16 +9,16 @@ import com.example.recookoil.ui.home.ui.*
 
 
 @Composable
-fun NavigationHost(navHostController: NavHostController, context: Context){
+fun NavigationHost(navHostController: NavHostController, context: Context, viewModel: UserViewModel){
     NavHost(navController = navHostController, startDestination = MenuDestination.HomeScreen.ruta ){
         composable(MenuDestination.HomeScreen.ruta){
-            HomeScreen(context)
+            HomeScreen(context, viewModel)
         }
         composable(MenuDestination.PaymentScreen.ruta){
             PaymentScreen(context)
         }
         composable(MenuDestination.ProfileScreen.ruta){
-            ProfileScreen(context)
+            ProfileScreen(context, viewModel)
         }
     }
 }

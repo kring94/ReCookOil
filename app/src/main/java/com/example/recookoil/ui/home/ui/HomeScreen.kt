@@ -20,18 +20,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
+import com.example.recookoil.ui.home.UserViewModel
 import com.example.recookoil.ui.theme.*
 import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
-fun HomeScreen(context: Context){
+fun HomeScreen(context: Context, viewModel: UserViewModel){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Primary)
         ){
         Column(modifier = Modifier) {
-            CardData(Modifier.align(Alignment.CenterHorizontally))
+            CardData(Modifier.align(Alignment.CenterHorizontally), viewModel)
             BodyData(context)
         }
 
@@ -39,7 +40,9 @@ fun HomeScreen(context: Context){
 }
 
 @Composable
-fun CardData(modifier: Modifier) {
+fun CardData(modifier: Modifier, viewModel: UserViewModel) {
+    val fullName = "${viewModel.name.value ?: ""} ${viewModel.lastName.value ?: ""}"
+    val points = viewModel.points.value ?: ""
     Row(
         modifier
             .size(width = 400.dp, height = 150.dp)
@@ -49,9 +52,9 @@ fun CardData(modifier: Modifier) {
         Column(modifier = modifier
             .padding(4.dp)
             .weight(0.7F,true)) {
-            NameText(Modifier.align(Alignment.Start))
+            NameText(Modifier.align(Alignment.Start), fullName)
             Spacer(modifier = Modifier.padding(4.dp))
-            PointsText(Modifier.align(Alignment.Start))
+            PointsText(Modifier.align(Alignment.Start), points)
         }
         Spacer(modifier = Modifier.width(4.dp))
         ProfileImage(Modifier.align(Alignment.CenterVertically))
@@ -76,9 +79,9 @@ fun BodyData(context:Context){
 }
 
 @Composable
-fun PointsText(align: Modifier) {
+fun PointsText(align: Modifier, points: String) {
     Text(
-        text = "Puntos: 0",
+        text = "Puntos: $points",
         fontSize = 18.sp,
         color = White,
         fontWeight = FontWeight.Bold
@@ -86,9 +89,9 @@ fun PointsText(align: Modifier) {
 }
 
 @Composable
-fun NameText(align: Modifier) {
+fun NameText(align: Modifier, name: String) {
     Text(
-        text = "Ronald Melo",
+        text = name,
         fontSize = 26.sp,
         color = White,
         fontStyle = FontStyle.Italic,
@@ -99,7 +102,7 @@ fun NameText(align: Modifier) {
 @Composable
 fun ProfileImage(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.generic_profile),
+        painter = painterResource(id = R.drawable.profile_image),
         contentDescription = "Image profile",
         contentScale = ContentScale.Crop,
         modifier = modifier

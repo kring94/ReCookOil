@@ -7,12 +7,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +19,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
-import com.example.recookoil.ui.home.HomeViewModel
 import com.example.recookoil.ui.login.ui.EmailField
 import com.example.recookoil.ui.login.ui.HeaderImage
 import com.example.recookoil.ui.theme.Primary
@@ -77,25 +72,42 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
             val phoneNumber = viewModel.phoneNumber.value.toString()
             val address = viewModel.address.value.toString()
 
+
             val dataUser = mapOf(
                 "Name" to name,
                 "Lastname" to lastname,
                 "Address" to address,
                 "Identification" to identification,
                 "PhoneNumber" to phoneNumber,
-                "Email" to email
+                "Email" to email,
+                "Points" to "0"
             )
 
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if(it.isSuccessful){
+                    //TODO falta mejorar la implementación
+
                     val id = FirebaseAuth.getInstance().currentUser!!.uid
+//                    viewModel.addNewUser(
+//                        id,
+//                        name,
+//                        lastname,
+//                        identification,
+//                        phoneNumber,
+//                        address,
+//                        email,
+//                        0
+//                    )
+                    //TODO
                     FirebaseDatabase.getInstance().reference
                         .child("Users")
                         .child(id)
                         .setValue(dataUser).addOnCompleteListener { data ->
                             if(data.isSuccessful){
-                                Toast.makeText(context, "Registro exitoso, igresa tus datos para ingresar", Toast.LENGTH_SHORT).show()
+
+                                Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
                                 context.startActivity(Intent(context, AuthActivity::class.java))
+
                             } else {
                                 Toast.makeText(context, "Algo salio mal, vuelve a intentarlo...", Toast.LENGTH_SHORT).show()
                             }
@@ -106,6 +118,7 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
             }
 
         }
+
     }
 }
 
@@ -146,9 +159,9 @@ fun HeaderImage(modifier: Modifier) {
 }
 
 @Composable
-fun OnEmailPassButton(emailPassOK: Boolean, onLoginSelected: () -> Unit) {
+fun OnEmailPassButton(emailPassOK: Boolean, onSignUp: () -> Unit) {
     Button(
-        onClick = { onLoginSelected() }, modifier = Modifier
+        onClick = { onSignUp() }, modifier = Modifier
             .fillMaxWidth()
             .height(48.dp), colors = ButtonDefaults.buttonColors(
             backgroundColor = Primary, disabledBackgroundColor = PrimaryDisable, contentColor = Color.White, disabledContentColor = Color.White

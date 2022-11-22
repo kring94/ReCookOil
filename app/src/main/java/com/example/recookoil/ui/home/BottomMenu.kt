@@ -19,7 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun PrincipalScreen(context: Context){
+fun PrincipalScreen(context: Context, viewModel: UserViewModel){
     val navHostController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -35,7 +35,7 @@ fun PrincipalScreen(context: Context){
         floatingActionButton = {Fab(scope, scaffoldState)},
         isFloatingActionButtonDocked = true
     ){
-        NavigationHost(navHostController = navHostController, context = context)
+        NavigationHost(navHostController = navHostController, context = context, viewModel = viewModel)
     }
 
 }

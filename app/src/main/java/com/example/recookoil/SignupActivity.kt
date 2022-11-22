@@ -14,7 +14,9 @@ import com.example.recookoil.ui.login.NavigationHostSignup
 import com.example.recookoil.ui.login.ui.signup.NameIdentificationScreen
 import com.example.recookoil.ui.login.ui.signup.SignupViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,9 @@ class SignupActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NavigationHostSignup(viewModel = SignupViewModel(), context = this@SignupActivity)
+                    val viewModel: SignupViewModel by viewModels()
+                    val state = viewModel.state.value
+                    NavigationHostSignup(viewModel = viewModel, context = this@SignupActivity)
                 }
             }
         }

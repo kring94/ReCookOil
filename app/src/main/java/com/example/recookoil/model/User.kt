@@ -7,7 +7,8 @@ data class User(
     val identification: String,
     val phoneNumber: String,
     val address: String,
-    val email: String
+    val email: String,
+    val points: Int
 ){
-    constructor(): this("","",",","","","","")
+    constructor(): this("","",",","","","","", 0)
 }

@@ -18,25 +18,25 @@ constructor(private val userRepository: UserRepository) : ViewModel() {
     val state: State<UserDetailState>
         get() = _state
 
-    fun addNewUser(
-        id: String,
-        name: String,
-        lastname: String,
-        identification: String,
-        phoneNumber: String,
-        address: String,
-        email: String
-    ){
-        val user = User(
-            id,
-            name,
-            lastname,
-            identification,
-            phoneNumber,
-            address,
-            email
-        )
-        userRepository.addNewUser(user)
-    }
+//    fun addNewUser(
+//        id: String,
+//        name: String,
+//        lastname: String,
+//        identification: String,
+//        phoneNumber: String,
+//        address: String,
+//        email: String
+//    ){
+//        val user = User(
+//            id,
+//            name,
+//            lastname,
+//            identification,
+//            phoneNumber,
+//            address,
+//            email
+//        )
+//        userRepository.addNewUser(user)
+//    }
 
 }

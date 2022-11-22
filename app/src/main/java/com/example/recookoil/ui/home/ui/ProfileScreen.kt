@@ -14,60 +14,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.recookoil.AuthActivity
+import com.example.recookoil.ui.home.HomeViewModel
+import com.example.recookoil.ui.home.UserViewModel
+import com.example.recookoil.ui.login.ui.signup.SignupViewModel
 import com.example.recookoil.ui.theme.DarkGray
 import com.example.recookoil.ui.theme.PrimaryDark
 import com.example.recookoil.ui.theme.PrimaryDisable
 import com.example.recookoil.ui.theme.Secondary
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 
-
 @Composable
-fun ProfileScreen(context: Context){
+fun ProfileScreen(context: Context, viewModel: UserViewModel){
     Box(modifier = Modifier
         .fillMaxSize()
     ){
 
-        val user = Firebase.auth.currentUser!!.uid
-        val dataUser = FirebaseDatabase.getInstance().reference.child("Users").child(user).get()
-        var name = ""
-        var lastname = ""
-        var identification = ""
-        var phoneNumber = ""
-        var address = ""
-        var email = ""
 
-        dataUser.addOnCompleteListener { data ->
-            name = data.result.child("Name").value.toString()
-            lastname = data.result.child("Lastname").value.toString()
-            identification = data.result.child("Identification").value.toString()
-            phoneNumber = data.result.child("PhoneNumber").value.toString()
-            address = data.result.child("Address").value.toString()
-            email = data.result.child("Email").value.toString()
+//        val user = Firebase.auth.currentUser!!.uid
+//        val state = viewModel.state.value
+//        val userRetriever = state.user
+//        viewModel.getUser(user)
 
-        }
+        val name = viewModel.name.value ?: ""
+        val lastname = viewModel.lastName.value ?: ""
+        val identification = viewModel.identification.value ?: ""
+        val phoneNumber = viewModel.phoneNumber.value ?: ""
+        val address = viewModel.address.value ?: ""
+        val email = viewModel.email.value ?: ""
 
-//        val postListener = object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if(dataSnapshot.exists()){
-//                     name = dataSnapshot.child("Name").value.toString()
-//                     lastname = dataSnapshot.child("Lastname").value.toString()
-//                     identification = dataSnapshot.child("Identification").value.toString()
-//                     phoneNumber = dataSnapshot.child("PhoneNumber").value.toString()
-//                     address = dataSnapshot.child("Address").value.toString()
-//                     email = dataSnapshot.child("email").value.toString()
-//
-//                }
-//            }
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                Toast.makeText(context, "Algo salio mal...", Toast.LENGTH_SHORT).show()
-//            }
-//        }
 
-        //dataUser.addValueEventListener(postListener)
+
 
         Column(modifier = Modifier) {
             titleProfile(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -131,7 +110,7 @@ fun titleData(modifier: Modifier, dataTitle: String){
         modifier = modifier
             .padding(4.dp),
         text = dataTitle,
-        fontSize = 20.sp,
+        fontSize = 14.sp,
         color = PrimaryDark,
         fontWeight = FontWeight.Bold
     )
@@ -143,7 +122,7 @@ fun data(modifier: Modifier, data: String){
         modifier = modifier
             .padding(4.dp),
         text = data,
-        fontSize = 18.sp,
+        fontSize = 20.sp,
         color = DarkGray,
     )
 }
