@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.login.ui
+package com.example.recookoil.ui.login
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData

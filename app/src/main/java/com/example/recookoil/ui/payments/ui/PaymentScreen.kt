@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.home.ui
+package com.example.recookoil.ui.payments
 
 import android.content.Context
 import androidx.compose.foundation.Image

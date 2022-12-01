@@ -1,4 +1,4 @@
-package com.example.recookoil
+package com.example.recookoil.ui.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import com.example.recookoil.ui.home.PrincipalScreen
-import com.example.recookoil.ui.home.UserViewModel
+import com.example.recookoil.ui.profile.UserViewModel
+import com.example.recookoil.ui.menu.PrincipalScreen
 import com.example.recookoil.ui.theme.ReCookOilTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase

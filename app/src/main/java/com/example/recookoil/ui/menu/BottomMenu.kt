@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.home
+package com.example.recookoil.ui.menu
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.recookoil.ui.profile.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

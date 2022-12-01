@@ -1,4 +1,4 @@
-package com.example.recookoil
+package com.example.recookoil.ui.signin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,11 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModelProvider
-import com.example.recookoil.ui.home.HomeViewModel
-import com.example.recookoil.ui.login.NavigationHostSignup
-import com.example.recookoil.ui.login.ui.signup.NameIdentificationScreen
-import com.example.recookoil.ui.login.ui.signup.SignupViewModel
+import com.example.recookoil.ui.signin.NavigationHostSignup
+import com.example.recookoil.ui.signin.SignupViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
 import dagger.hilt.android.AndroidEntryPoint
 

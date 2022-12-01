@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.home
+package com.example.recookoil.ui.profile
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import com.example.recookoil.model.*
+import com.example.recookoil.ui.home.UserState
 
 
 @HiltViewModel

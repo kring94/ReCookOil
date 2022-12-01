@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.login.ui.signup
+package com.example.recookoil.ui.signin
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.recookoil.R
+import com.example.recookoil.ui.signin.SignupViewModel
 import com.example.recookoil.ui.theme.*
 
 

@@ -1,7 +1,6 @@
 package com.example.recookoil.ui.home.ui
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -13,16 +12,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
-import com.example.recookoil.ui.home.UserViewModel
+import com.example.recookoil.ui.profile.UserViewModel
 import com.example.recookoil.ui.theme.*
-import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
@@ -102,7 +98,7 @@ fun NameText(align: Modifier, name: String) {
 @Composable
 fun ProfileImage(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.profile_image),
+        painter = painterResource(id = R.drawable.generic_profile),
         contentDescription = "Image profile",
         contentScale = ContentScale.Crop,
         modifier = modifier

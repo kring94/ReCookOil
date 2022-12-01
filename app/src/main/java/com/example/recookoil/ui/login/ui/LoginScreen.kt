@@ -16,11 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.recookoil.HomeActivity
+import com.example.recookoil.ui.home.HomeActivity
 import com.example.recookoil.R
-import com.example.recookoil.SignupActivity
+import com.example.recookoil.ui.signin.SignupActivity
+import com.example.recookoil.ui.login.LoginViewModel
 import com.example.recookoil.ui.theme.*
 import com.google.firebase.auth.FirebaseAuth
 
@@ -62,7 +64,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
                         Toast.makeText(context, "Login exitoso!!", Toast.LENGTH_SHORT).show()
-                        val navigate = Intent(context,HomeActivity::class.java)
+                        val navigate = Intent(context, HomeActivity::class.java)
                         context.startActivity(navigate)
                     } else {
                         Toast.makeText(context, "Login no exitoso!!", Toast.LENGTH_SHORT).show()
@@ -70,16 +72,21 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, context: Context) {
                 }
             }
             Spacer(modifier = Modifier.padding(4.dp))
-            SignUp(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                context.startActivity(Intent(context, SignupActivity::class.java))
-            }
+            SignUp(
+                {context.startActivity(Intent(context, SignupActivity::class.java))}
+                ,modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
     }
 
 }
 
+
 @Composable
-fun SignUp(modifier: Modifier, onLoginSelected: () -> Unit) {
+fun SignUp(
+    onLoginSelected: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Text(
         text = "Registrarse",
         modifier = modifier.clickable(onClick =  { onLoginSelected() }),
@@ -89,7 +96,10 @@ fun SignUp(modifier: Modifier, onLoginSelected: () -> Unit) {
 }
 
 @Composable
-fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
+fun LoginButton(
+    loginEnable: Boolean,
+    onLoginSelected: () -> Unit
+) {
     Button(
         onClick = { onLoginSelected() }, modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +113,7 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
 }
 
 @Composable
-fun ForgotPassword(modifier: Modifier) {
+fun ForgotPassword(modifier: Modifier = Modifier) {
     Text(
         text = "Olvidaste la contraseña?",
         modifier = modifier.clickable { },
@@ -113,7 +123,10 @@ fun ForgotPassword(modifier: Modifier) {
 }
 
 @Composable
-fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
+fun PasswordField(
+    password: String,
+    onTextFieldChanged: (String) -> Unit
+) {
     OutlinedTextField(value = password,
         onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
@@ -128,7 +141,10 @@ fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
 
 
 @Composable
-fun EmailField(email: String, onTextFieldChanged: (String) -> Unit) {
+fun EmailField(
+    email: String,
+    onTextFieldChanged: (String) -> Unit
+) {
     OutlinedTextField(value = email,
         onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
@@ -141,11 +157,20 @@ fun EmailField(email: String, onTextFieldChanged: (String) -> Unit) {
 }
 
 @Composable
-fun HeaderImage(modifier: Modifier) {
+fun HeaderImage(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.logo_header),
         contentDescription = "Header image",
         modifier = modifier
     )
+}
+
+
+@Preview
+@Composable
+fun LoginScreenPreview(){
+    ReCookOilTheme {
+        
+    }
 }
 

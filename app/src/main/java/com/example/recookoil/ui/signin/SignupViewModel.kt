@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.login.ui.signup
+package com.example.recookoil.ui.signin
 
 import android.util.Patterns
 import androidx.compose.runtime.MutableState

@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.home.ui
+package com.example.recookoil.ui.profile
 
 import android.content.Context
 import android.content.Intent
@@ -14,16 +14,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.recookoil.AuthActivity
-import com.example.recookoil.ui.home.HomeViewModel
-import com.example.recookoil.ui.home.UserViewModel
-import com.example.recookoil.ui.login.ui.signup.SignupViewModel
+import com.example.recookoil.ui.profile.UserViewModel
 import com.example.recookoil.ui.theme.DarkGray
 import com.example.recookoil.ui.theme.PrimaryDark
 import com.example.recookoil.ui.theme.PrimaryDisable
 import com.example.recookoil.ui.theme.Secondary
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 @Composable

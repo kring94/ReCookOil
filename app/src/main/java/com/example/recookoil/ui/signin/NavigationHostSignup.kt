@@ -1,12 +1,11 @@
-package com.example.recookoil.ui.login
+package com.example.recookoil.ui.signin
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.recookoil.ui.login.SignupDestination.*
-import com.example.recookoil.ui.login.ui.signup.*
+import com.example.recookoil.ui.signin.SignupDestination.*
 
 @Composable
 fun NavigationHostSignup(viewModel: SignupViewModel, context: Context){

@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.login.ui.signup
+package com.example.recookoil.ui.signin
 
 import android.content.Context
 import android.content.Intent
@@ -21,6 +21,7 @@ import com.example.recookoil.AuthActivity
 import com.example.recookoil.R
 import com.example.recookoil.ui.login.ui.EmailField
 import com.example.recookoil.ui.login.ui.HeaderImage
+import com.example.recookoil.ui.signin.SignupViewModel
 import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 import com.google.firebase.auth.FirebaseAuth

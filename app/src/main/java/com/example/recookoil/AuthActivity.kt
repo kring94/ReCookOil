@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import com.example.recookoil.ui.home.HomeActivity
 import com.example.recookoil.ui.login.ui.LoginScreen
-import com.example.recookoil.ui.login.ui.LoginViewModel
+import com.example.recookoil.ui.login.LoginViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -27,7 +27,7 @@ class AuthActivity : ComponentActivity() {
                 ) {
                     val user = Firebase.auth.currentUser
                     if(user != null) {
-                        val navigate = Intent(this@AuthActivity,HomeActivity::class.java)
+                        val navigate = Intent(this@AuthActivity, HomeActivity::class.java)
                         startActivity(navigate)
                     } else {
                         LoginScreen(LoginViewModel(), this@AuthActivity)
