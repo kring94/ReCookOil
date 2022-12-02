@@ -21,38 +21,10 @@ import com.example.recookoil.ui.home.UserState
 class UserViewModel
 @Inject
 constructor(
-    private val userRepository: UserRepository
+
 ): ViewModel(){
     private val _state: MutableState<UserState> = mutableStateOf(UserState())
     val state : State<UserState> = _state
-
-    fun getUser(userId: String){
-        userRepository.getUser(userId).onEach {  result ->
-            when(result){
-                is Result.Error -> {
-                    _state.value = UserState(error = result.message ?: "Error inesperado")
-                }
-                is Result.Loading -> {
-                    _state.value = UserState(isLoading = true)
-                }
-                is Result.Success -> {
-
-                    _state.value = UserState(user = result.data ?: User(
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        0
-                    )
-                    )
-                }
-            }
-
-        }.launchIn(viewModelScope)
-    }
 
     private var _points = MutableLiveData<String>()
     val points: LiveData<String> = _points

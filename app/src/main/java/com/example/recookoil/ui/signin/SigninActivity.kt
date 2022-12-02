@@ -8,8 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.example.recookoil.ui.signin.NavigationHostSignup
-import com.example.recookoil.ui.signin.SignupViewModel
+import com.example.recookoil.ui.signin.navigation.NavigationHostSignup
 import com.example.recookoil.ui.theme.ReCookOilTheme
 import dagger.hilt.android.AndroidEntryPoint
 

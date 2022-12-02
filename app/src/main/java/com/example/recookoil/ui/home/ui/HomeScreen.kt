@@ -3,7 +3,6 @@ package com.example.recookoil.ui.home.ui
 import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -11,7 +10,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -22,14 +24,14 @@ import com.example.recookoil.ui.theme.*
 
 
 @Composable
-fun HomeScreen(context: Context, viewModel: UserViewModel){
+fun HomeScreen(viewModel: UserViewModel){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Primary)
         ){
         Column(modifier = Modifier) {
             CardData(Modifier.align(Alignment.CenterHorizontally), viewModel)
-            BodyData(context)
+            BodyData()
         }
 
     }
@@ -37,8 +39,12 @@ fun HomeScreen(context: Context, viewModel: UserViewModel){
 
 @Composable
 fun CardData(modifier: Modifier, viewModel: UserViewModel) {
-    val fullName = "${viewModel.name.value ?: ""} ${viewModel.lastName.value ?: ""}"
-    val points = viewModel.points.value ?: ""
+    val name: String by viewModel.name.observeAsState(initial = "")
+    val lastname: String by viewModel.lastName.observeAsState(initial = "")
+    val points: String by viewModel.points.observeAsState(initial = "")
+
+    val fullName = "$name $lastname"
+    val setPoints = "Puntos: $points"
     Row(
         modifier
             .size(width = 400.dp, height = 150.dp)
@@ -47,10 +53,11 @@ fun CardData(modifier: Modifier, viewModel: UserViewModel) {
     ) {
         Column(modifier = modifier
             .padding(4.dp)
-            .weight(0.7F,true)) {
-            NameText(Modifier.align(Alignment.Start), fullName)
+            .weight(0.7F, true)
+            ) {
+            NameText(fullName, Modifier.align(Alignment.Start))
             Spacer(modifier = Modifier.padding(4.dp))
-            PointsText(Modifier.align(Alignment.Start), points)
+            PointsText(setPoints, Modifier.align(Alignment.Start))
         }
         Spacer(modifier = Modifier.width(4.dp))
         ProfileImage(Modifier.align(Alignment.CenterVertically))
@@ -58,34 +65,28 @@ fun CardData(modifier: Modifier, viewModel: UserViewModel) {
 }
 
 @Composable
-fun BodyData(context:Context){
+fun BodyData(){
     Card(
-        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+        shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
     ) {
         Column(modifier = Modifier
-            .fillMaxSize()
-            .background(White)) {
-//            LogoutButton() {
-//                FirebaseAuth.getInstance().signOut()
-//                val navigate = Intent(context, AuthActivity::class.java)
-//                context.startActivity(navigate)
-//            }
+            .fillMaxSize()) {
         }
     }
 }
 
 @Composable
-fun PointsText(align: Modifier, points: String) {
+fun PointsText(points: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Puntos: $points",
+        text = points,
         fontSize = 18.sp,
-        color = White,
+        color = DarkGray,
         fontWeight = FontWeight.Bold
     )
 }
 
 @Composable
-fun NameText(align: Modifier, name: String) {
+fun NameText(name: String, modifier: Modifier = Modifier) {
     Text(
         text = name,
         fontSize = 26.sp,
@@ -96,7 +97,7 @@ fun NameText(align: Modifier, name: String) {
 }
 
 @Composable
-fun ProfileImage(modifier: Modifier) {
+fun ProfileImage(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.generic_profile),
         contentDescription = "Image profile",
@@ -108,16 +109,3 @@ fun ProfileImage(modifier: Modifier) {
     )
 }
 
-//@Composable
-//fun LogoutButton(onLoginSelected: () -> Unit) {
-//    Button(
-//        onClick = { onLoginSelected() }, modifier = Modifier
-//            .padding(10.dp)
-//            .fillMaxWidth()
-//            .height(48.dp), colors = ButtonDefaults.buttonColors(
-//            backgroundColor = Secondary, disabledBackgroundColor = PrimaryDisable, contentColor = Color.White, disabledContentColor = Color.White
-//        )
-//    ) {
-//        Text(text = "Cerrar Sesión")
-//    }
-//}

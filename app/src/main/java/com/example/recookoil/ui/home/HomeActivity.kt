@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
+import com.example.recookoil.ui.home.menu.MainScreen
 import com.example.recookoil.ui.profile.UserViewModel
-import com.example.recookoil.ui.menu.PrincipalScreen
 import com.example.recookoil.ui.theme.ReCookOilTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
@@ -43,7 +43,7 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PrincipalScreen(this@HomeActivity, viewModel)
+                    MainScreen(viewModel)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.signin
+package com.example.recookoil.ui.signin.ui
 
 import android.content.Context
 import android.content.Intent
@@ -89,16 +89,6 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
                     //TODO falta mejorar la implementación
 
                     val id = FirebaseAuth.getInstance().currentUser!!.uid
-//                    viewModel.addNewUser(
-//                        id,
-//                        name,
-//                        lastname,
-//                        identification,
-//                        phoneNumber,
-//                        address,
-//                        email,
-//                        0
-//                    )
                     //TODO
                     FirebaseDatabase.getInstance().reference
                         .child("Users")

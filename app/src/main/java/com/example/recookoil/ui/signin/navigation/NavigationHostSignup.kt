@@ -1,34 +1,37 @@
-package com.example.recookoil.ui.signin
+package com.example.recookoil.ui.signin.navigation
 
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.recookoil.ui.signin.SignupDestination.*
+import com.example.recookoil.ui.signin.SignupViewModel
+import com.example.recookoil.ui.signin.ui.AddressPhoneScreen
+import com.example.recookoil.ui.signin.ui.EmailPassScreen
+import com.example.recookoil.ui.signin.ui.NameIdentificationScreen
 
 @Composable
 fun NavigationHostSignup(viewModel: SignupViewModel, context: Context){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = NameIdentificationScreen.route){
-        composable(NameIdentificationScreen.route) {
+    NavHost(navController = navController, startDestination = SignupDestination.NameIdentificationScreen.route){
+        composable(SignupDestination.NameIdentificationScreen.route) {
             NameIdentificationScreen(
                 viewModel = viewModel,
                 context = context,
                 navigateAddressPhone = {
-                    navController.navigate(AddressPhoneScreen.route)
+                    navController.navigate(SignupDestination.AddressPhoneScreen.route)
                 }
             )
         }
-        composable(AddressPhoneScreen.route) {
+        composable(SignupDestination.AddressPhoneScreen.route) {
             AddressPhoneScreen(viewModel = viewModel,
                 context = context,
                 navigateEmailPassScreen = {
-                    navController.navigate(EmailPassScreen.route)
+                    navController.navigate(SignupDestination.EmailPassScreen.route)
                 }
             )
         }
-        composable(EmailPassScreen.route) {
+        composable(SignupDestination.EmailPassScreen.route) {
             EmailPassScreen(viewModel = viewModel,
                 context = context
             )

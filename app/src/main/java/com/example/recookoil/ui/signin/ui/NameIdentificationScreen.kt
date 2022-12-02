@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.signin
+package com.example.recookoil.ui.signin.ui
 
 import android.content.Context
 import androidx.compose.foundation.Image

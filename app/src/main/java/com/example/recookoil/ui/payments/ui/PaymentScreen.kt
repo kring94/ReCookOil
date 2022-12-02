@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.payments
+package com.example.recookoil.ui.payments.ui
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import com.example.recookoil.R
 
 @Composable
-fun PaymentScreen(context: Context){
+fun PaymentScreen(){
     Box(modifier = Modifier
         .fillMaxSize()
     ){

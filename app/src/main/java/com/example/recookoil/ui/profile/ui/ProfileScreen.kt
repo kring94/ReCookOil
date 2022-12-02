@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.profile
+package com.example.recookoil.ui.profile.ui
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,16 +24,13 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
-fun ProfileScreen(context: Context, viewModel: UserViewModel){
+fun ProfileScreen(viewModel: UserViewModel){
     Box(modifier = Modifier
         .fillMaxSize()
+        .padding(8.dp)
     ){
 
-
-//        val user = Firebase.auth.currentUser!!.uid
-//        val state = viewModel.state.value
-//        val userRetriever = state.user
-//        viewModel.getUser(user)
+        val context = LocalContext.current
 
         val name = viewModel.name.value ?: ""
         val lastname = viewModel.lastName.value ?: ""
@@ -40,8 +38,6 @@ fun ProfileScreen(context: Context, viewModel: UserViewModel){
         val phoneNumber = viewModel.phoneNumber.value ?: ""
         val address = viewModel.address.value ?: ""
         val email = viewModel.email.value ?: ""
-
-
 
 
         Column(modifier = Modifier) {

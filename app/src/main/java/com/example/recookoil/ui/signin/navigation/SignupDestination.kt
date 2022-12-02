@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.signin
+package com.example.recookoil.ui.signin.navigation
 
 
 sealed class SignupDestination(
