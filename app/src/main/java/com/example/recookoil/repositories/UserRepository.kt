@@ -19,8 +19,6 @@ constructor(
     private val authUser: FirebaseAuth
 ){
 
-
-
     fun createUser(email: String, password: String):Task<AuthResult> {
         return authUser.createUserWithEmailAndPassword(email, password)
     }
@@ -43,15 +41,11 @@ constructor(
 
     fun getUser(userId: String) : Flow<Result<User>> = flow {
         try {
-//            emit(Result.Loading<List<User>>())
-//            val user = userList.get().await().map { user ->
-//                user.toObject(User::class.java)
-//            }
-            emit(Result.Loading())
+            emit(Result.Loading<User>())
 
             val user = userList.document(userId).get().await().toObject(User::class.java)
 
-            emit(Result.Success(data = user))
+            emit(Result.Success<User>(data = user))
 
         }catch(e: Exception){
             emit(Result.Error(message = e.localizedMessage ?: "Error Desconocido"))

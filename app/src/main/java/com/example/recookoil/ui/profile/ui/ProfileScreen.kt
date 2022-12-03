@@ -1,6 +1,5 @@
 package com.example.recookoil.ui.profile.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -32,13 +31,7 @@ fun ProfileScreen(viewModel: UserViewModel){
 
         val context = LocalContext.current
 
-        val name = viewModel.name.value ?: ""
-        val lastname = viewModel.lastName.value ?: ""
-        val identification = viewModel.identification.value ?: ""
-        val phoneNumber = viewModel.phoneNumber.value ?: ""
-        val address = viewModel.address.value ?: ""
-        val email = viewModel.email.value ?: ""
-
+        val dataUser = viewModel.state.value.user
 
         Column(modifier = Modifier) {
             titleProfile(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -46,32 +39,32 @@ fun ProfileScreen(viewModel: UserViewModel){
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Nombre")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = name)
+            data(modifier = Modifier, data = dataUser.name)
 
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Apellido")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = lastname)
+            data(modifier = Modifier, data = dataUser.lastname)
 
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Identificación")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = identification)
+            data(modifier = Modifier, data = dataUser.identification)
 
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Número de telefono")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = phoneNumber)
+            data(modifier = Modifier, data = dataUser.phoneNumber)
 
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Dirección")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = address)
+            data(modifier = Modifier, data = dataUser.address)
 
             Spacer(modifier = Modifier.padding(4.dp))
             titleData(modifier = Modifier, "Correo Electrónico")
             Spacer(modifier = Modifier.padding(4.dp))
-            data(modifier = Modifier, data = email)
+            data(modifier = Modifier, data = dataUser.email)
 
             Spacer(modifier = Modifier.padding(16.dp))
             LogoutButton {

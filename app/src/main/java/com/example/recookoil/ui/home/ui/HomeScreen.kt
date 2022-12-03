@@ -1,6 +1,5 @@
 package com.example.recookoil.ui.home.ui
 
-import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Alignment
@@ -11,9 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,12 +36,11 @@ fun HomeScreen(viewModel: UserViewModel){
 
 @Composable
 fun CardData(modifier: Modifier, viewModel: UserViewModel) {
-    val name: String by viewModel.name.observeAsState(initial = "")
-    val lastname: String by viewModel.lastName.observeAsState(initial = "")
-    val points: String by viewModel.points.observeAsState(initial = "")
+    val dataUser = viewModel.state.value.user
 
-    val fullName = "$name $lastname"
-    val setPoints = "Puntos: $points"
+    val fullName = "${dataUser.name} ${dataUser.lastname}"
+    val setPoints = "Puntos: ${dataUser.points}"
+
     Row(
         modifier
             .size(width = 400.dp, height = 150.dp)
