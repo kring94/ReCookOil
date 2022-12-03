@@ -23,20 +23,20 @@ import com.example.recookoil.ui.theme.Primary
 import com.example.recookoil.ui.theme.PrimaryDisable
 
 @Composable
-fun AddressPhoneScreen(viewModel: SignupViewModel, context: Context,
+fun AddressPhoneScreen(viewModel: SignupViewModel,
                        navigateEmailPassScreen: () -> Unit){
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        AddressPhone(modifier = Modifier, viewModel = viewModel, context, navigateEmailPassScreen)
+        AddressPhone(viewModel = viewModel, navigateEmailPassScreen, modifier = Modifier)
     }
 }
 
 
 @Composable
-fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Context, navigateEmailPassScreen: () -> Unit){
+fun AddressPhone(viewModel: SignupViewModel, navigateEmailPassScreen: () -> Unit, modifier: Modifier = Modifier){
     val address: String by viewModel.address.observeAsState("")
     val phoneNumber: String by viewModel.phoneNumber.observeAsState("")
     val addressPhoneOK: Boolean by viewModel.addressPhoneOK.observeAsState(false)
@@ -62,7 +62,7 @@ fun AddressPhone(modifier: Modifier, viewModel: SignupViewModel, context: Contex
 
 
 @Composable
-fun HeaderAddressPhoneImage(modifier: Modifier) {
+fun HeaderAddressPhoneImage(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.logo_header),
         contentDescription = "Header image",

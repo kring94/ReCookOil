@@ -26,7 +26,7 @@ class SignupActivity : ComponentActivity() {
                 ) {
                     val viewModel: SignupViewModel by viewModels()
                     val state = viewModel.state.value
-                    NavigationHostSignup(viewModel = viewModel, context = this@SignupActivity)
+                    NavigationHostSignup(viewModel = viewModel)
                 }
             }
         }

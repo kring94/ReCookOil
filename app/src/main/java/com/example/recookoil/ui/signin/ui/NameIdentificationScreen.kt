@@ -14,6 +14,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -25,7 +26,6 @@ import com.example.recookoil.ui.theme.*
 @Composable
 fun NameIdentificationScreen(
     viewModel: SignupViewModel,
-    context: Context,
     navigateAddressPhone: () -> Unit
 ){
     Box(
@@ -33,12 +33,15 @@ fun NameIdentificationScreen(
             .fillMaxSize()
             .padding(16.dp)
     ){
-        NameIdentification(modifier = Modifier, viewModel = viewModel, context, navigateAddressPhone)
+        NameIdentification(modifier = Modifier, viewModel = viewModel, navigateAddressPhone)
     }
 }
 
 @Composable
-fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, context: Context, navigateAddressPhone: () -> Unit){
+fun NameIdentification(modifier: Modifier, viewModel: SignupViewModel, navigateAddressPhone: () -> Unit){
+
+    val context = LocalContext.current // Llamado al contexto
+
     val name: String by viewModel.name.observeAsState("")
     val lastName: String by viewModel.lastName.observeAsState("")
     val identification: String by viewModel.identification.observeAsState("")

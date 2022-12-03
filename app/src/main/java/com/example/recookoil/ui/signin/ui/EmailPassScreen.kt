@@ -13,6 +13,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,24 +29,26 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 @Composable
-fun EmailPassScreen(viewModel: SignupViewModel, context: Context){
+fun EmailPassScreen(viewModel: SignupViewModel){
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ){
-        EmailPass(modifier = Modifier.align(Alignment.Center), viewModel = viewModel, context)
+        EmailPass(viewModel = viewModel,modifier = Modifier.align(Alignment.Center))
         Log.d("Name", viewModel.name.value.toString())
     }
 }
 
 @Composable
-fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
+fun EmailPass(viewModel: SignupViewModel, modifier: Modifier = Modifier){
 
+    val context = LocalContext.current
 
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
+    val passwordConfirmation: String by viewModel.passwordConfirmation.observeAsState(initial = "")
     val emailPassOK: Boolean by viewModel.emailPassOK.observeAsState(initial = false)
 
     Column(modifier = Modifier) {
@@ -54,18 +57,29 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
         EmailField(email) {
             viewModel.onEmailPassChanged(
                 it,
-                password
+                password,
+                passwordConfirmation
             )
         }
         Spacer(modifier = Modifier.padding(4.dp))
-        PasswordField(password) {
+        PasswordField(password,"Contraseña") {
             viewModel.onEmailPassChanged(
                 email,
+                it,
+                passwordConfirmation
+            )
+        }
+        Spacer(modifier = Modifier.padding(4.dp))
+        PasswordField(passwordConfirmation,"Confirmar contraseña") {
+            viewModel.onEmailPassChanged(
+                email,
+                password,
                 it
             )
         }
         Spacer(modifier = Modifier.padding(16.dp))
         OnEmailPassButton(emailPassOK = emailPassOK) {
+
             //TODO implementación para navegar a la proxima ventana
             val name = viewModel.name.value.toString()
             val lastname = viewModel.lastName.value.toString()
@@ -73,41 +87,26 @@ fun EmailPass(modifier: Modifier, viewModel: SignupViewModel, context: Context){
             val phoneNumber = viewModel.phoneNumber.value.toString()
             val address = viewModel.address.value.toString()
 
-
-            val dataUser = mapOf(
-                "Name" to name,
-                "Lastname" to lastname,
-                "Address" to address,
-                "Identification" to identification,
-                "PhoneNumber" to phoneNumber,
-                "Email" to email,
-                "Points" to "0"
-            )
-
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+            viewModel.onSignin(email, password).addOnCompleteListener {
                 if(it.isSuccessful){
-                    //TODO falta mejorar la implementación
-
-                    val id = FirebaseAuth.getInstance().currentUser!!.uid
-                    //TODO
-                    FirebaseDatabase.getInstance().reference
-                        .child("Users")
-                        .child(id)
-                        .setValue(dataUser).addOnCompleteListener { data ->
-                            if(data.isSuccessful){
-
-                                Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                                context.startActivity(Intent(context, AuthActivity::class.java))
-
-                            } else {
-                                Toast.makeText(context, "Algo salio mal, vuelve a intentarlo...", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                    viewModel.apply {
+                        addNewUser(
+                            retrieveIdUser(),
+                            name,
+                            lastname,
+                            identification,
+                            address,
+                            phoneNumber,
+                            email,
+                            0
+                        )
+                    }
+                    Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    context.startActivity(Intent(context, AuthActivity::class.java))
                 } else {
                     Toast.makeText(context, "Algo salio mal, vuelve a intentarlo...", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
 
     }
@@ -127,18 +126,19 @@ fun EmailField(email: String, onTextFieldChanged: (String) -> Unit) {
 }
 
 @Composable
-fun PasswordField(password: String, onTextFieldChanged: (String) -> Unit) {
+fun PasswordField(password: String, labelText: String, onTextFieldChanged: (String) -> Unit) {
     OutlinedTextField(value = password,
         onValueChange = { onTextFieldChanged(it) },
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Contraseña") },
+        placeholder = { Text(text = labelText) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
         maxLines = 1,
-        label = { Text("Contraseña") },
+        label = { Text(labelText) },
         visualTransformation = PasswordVisualTransformation(),
     )
 }
+
 
 @Composable
 fun HeaderImage(modifier: Modifier) {

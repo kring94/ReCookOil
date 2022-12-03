@@ -11,13 +11,18 @@ import com.example.recookoil.domain.CreateAccountUseCase
 import com.example.recookoil.model.User
 import com.example.recookoil.repositories.UserRepository
 import com.example.recookoil.ui.home.data.UserDetailState
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel
 @Inject
-constructor(val createAccountUseCase: CreateAccountUseCase) : ViewModel() {
+constructor(
+    private val userRepository: UserRepository,
+    val createAccountUseCase: CreateAccountUseCase
+    ) : ViewModel() {
 
     private val _state: MutableState<UserDetailState> = mutableStateOf(UserDetailState())
     val state: State<UserDetailState>
@@ -28,6 +33,9 @@ constructor(val createAccountUseCase: CreateAccountUseCase) : ViewModel() {
 
     private val _password = MutableLiveData<String>()
     val password : LiveData<String> = _password
+
+    private val _passwordConfirmation = MutableLiveData<String>()
+    val passwordConfirmation : LiveData<String> = _passwordConfirmation
 
     private val _name = MutableLiveData<String>()
     val name : LiveData<String> = _name
@@ -54,10 +62,11 @@ constructor(val createAccountUseCase: CreateAccountUseCase) : ViewModel() {
     private val _addressPhoneOK = MutableLiveData<Boolean>()
     val addressPhoneOK : LiveData<Boolean> = _addressPhoneOK
 
-    fun onEmailPassChanged(email: String, password: String){
+    fun onEmailPassChanged(email: String, password: String, passwordConfirmation: String){
         _email.value = email
         _password.value = password
-        _emailPassOK.value = isValidEmail(email) && isValidPassword(password)
+        _passwordConfirmation.value = passwordConfirmation
+        _emailPassOK.value = isValidEmail(email) && isValidPasswordConfirmation(password, passwordConfirmation)
     }
 
     fun onNameIdentificationChanged(name: String, lastName: String, identification: String){
@@ -73,8 +82,13 @@ constructor(val createAccountUseCase: CreateAccountUseCase) : ViewModel() {
         _addressPhoneOK.value = isValidPhoneNumber(numberPhone) && isValidAddress(address)
     }
 
+    private fun isValidPasswordConfirmation(password: String, passwordConfirmation: String): Boolean{
+        return (password == passwordConfirmation) && isValidPassword(password) && isValidPasswordConfirmation(passwordConfirmation)
+    }
 
     private fun isValidPassword(password: String): Boolean  = password.length > 6
+
+    private fun isValidPasswordConfirmation(passwordConfirmation: String): Boolean  = passwordConfirmation.length > 6
 
     private fun isValidEmail(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
@@ -87,4 +101,35 @@ constructor(val createAccountUseCase: CreateAccountUseCase) : ViewModel() {
     private fun isValidPhoneNumber(number: String): Boolean = number.length>9
 
     private fun isValidAddress(address: String): Boolean = address.length>10
+
+    fun onSignin(email: String, password: String): Task<AuthResult> {
+        return userRepository.createUser(email, password)
+    }
+
+    fun retrieveIdUser(): String {
+        return userRepository.getIdUser()
+    }
+
+    fun addNewUser(
+        id: String,
+        name: String,
+        lastName: String,
+        identification: String,
+        address: String,
+        phoneNumber: String,
+        email: String,
+        points: Int
+    ){
+        val user = User(
+            id,
+            name,
+            lastName,
+            identification,
+            phoneNumber,
+            address,
+            email,
+            points
+        )
+        userRepository.addNewUser(user)
+    }
 }

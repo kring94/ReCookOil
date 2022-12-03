@@ -1,8 +1,6 @@
 package com.example.recookoil.ui.login.ui
 
-import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -29,7 +27,6 @@ import com.example.recookoil.ui.signin.ui.EmailField
 import com.example.recookoil.ui.signin.ui.HeaderImage
 import com.example.recookoil.ui.signin.ui.PasswordField
 import com.example.recookoil.ui.theme.*
-import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
@@ -45,6 +42,7 @@ fun LoginScreen(viewModel: LoginViewModel) {
 
 @Composable
 fun Login(modifier: Modifier, viewModel: LoginViewModel) {
+
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
@@ -68,16 +66,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
             Spacer(modifier = Modifier.padding(12.dp))
             LoginButton(loginEnable) {
 
-//                Log.d("Login", "$email  $password")
-//                if (viewModel.onLoginSelected(email, password)) {
-//                    Toast.makeText(context, "Login exitoso!!", Toast.LENGTH_SHORT).show()
-//                    val navigate = Intent(context, HomeActivity::class.java)
-//                    context.startActivity(navigate)
-//                } else {
-//                    Toast.makeText(context, "Login no exitoso!!", Toast.LENGTH_SHORT).show()
-//                }
-                //LogIn with FireBase
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                viewModel.onLoginAuth(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
                         Toast.makeText(context, "Login exitoso!!", Toast.LENGTH_SHORT).show()
                         val navigate = Intent(context, HomeActivity::class.java)
@@ -86,6 +75,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
                         Toast.makeText(context, "Login no exitoso!!", Toast.LENGTH_SHORT).show()
                     }
                 }
+
             }
             Spacer(modifier = Modifier.padding(4.dp))
             SignUp(
