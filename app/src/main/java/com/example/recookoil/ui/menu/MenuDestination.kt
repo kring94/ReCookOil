@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.home.menu
+package com.example.recookoil.ui.menu
 
 import com.example.recookoil.R
 

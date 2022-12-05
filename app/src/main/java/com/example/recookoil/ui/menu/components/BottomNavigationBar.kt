@@ -1,17 +1,21 @@
-package com.example.recookoil.ui.home.components
+package com.example.recookoil.ui.menu.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.recookoil.ui.home.menu.MenuDestination
+import com.example.recookoil.ui.menu.MenuDestination
+import com.example.recookoil.ui.theme.SecondaryLight
 
 @Composable
 fun currentRoute(navHostController: NavHostController):String?{

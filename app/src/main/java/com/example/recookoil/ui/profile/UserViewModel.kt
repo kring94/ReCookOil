@@ -28,13 +28,8 @@ constructor(
         getUser()
     }
 
-
-    fun retrieveIdUser(): String {
-        return userRepository.getIdUser()
-    }
-
-    fun getUser(){
-        userRepository.getUser(retrieveIdUser()).onEach { result ->
+    private fun getUser(){
+        userRepository.getUser(userRepository.getIdUser()).onEach { result ->
             when(result){
                 is Result.Error -> {
                     _state.value = UserState(error = result.message ?: "Error inesperado")

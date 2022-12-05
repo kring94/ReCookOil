@@ -1,12 +1,12 @@
-package com.example.recookoil.ui.home.menu
+package com.example.recookoil.ui.menu
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
-import com.example.recookoil.ui.home.components.Fab
-import com.example.recookoil.ui.home.components.NavigationBottom
-import com.example.recookoil.ui.home.menu.MenuDestination.*
+import com.example.recookoil.ui.menu.components.Fab
+import com.example.recookoil.ui.menu.components.NavigationBottom
+import com.example.recookoil.ui.menu.MenuDestination.*
 import com.example.recookoil.ui.profile.UserViewModel
 
 @Composable

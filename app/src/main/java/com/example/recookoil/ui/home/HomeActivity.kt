@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import com.example.recookoil.ui.home.menu.MainScreen
+import com.example.recookoil.ui.menu.MainScreen
 import com.example.recookoil.ui.profile.UserViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
 import dagger.hilt.android.AndroidEntryPoint
