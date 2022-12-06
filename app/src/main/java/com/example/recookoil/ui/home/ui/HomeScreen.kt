@@ -19,33 +19,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.recookoil.R
+import com.example.recookoil.ui.menu.MenuDestination.*
+import com.example.recookoil.ui.menu.ModuleDestination
 import com.example.recookoil.ui.profile.UserViewModel
 import com.example.recookoil.ui.theme.*
-import org.checkerframework.checker.units.qual.m
 
 
 @Composable
-fun HomeScreen(viewModel: UserViewModel){
+fun HomeScreen(navHostController: NavHostController, viewModel: UserViewModel){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Primary)
         ){
         Column(modifier = Modifier) {
-            CardData(viewModel,Modifier.align(Alignment.CenterHorizontally))
-            BodyData()
+            CardData(navHostController,viewModel,Modifier.align(Alignment.CenterHorizontally))
+            BodyData(navHostController)
+
         }
 
     }
 }
 
 @Composable
-fun CardData( viewModel: UserViewModel, modifier: Modifier = Modifier) {
+fun CardData(
+    navHostController: NavHostController,
+    viewModel: UserViewModel,
+    modifier: Modifier = Modifier
+) {
 
+    //Recuperación de información de Firestore por medio de viewModel
     val dataUser = viewModel.state.value.user
 
     val fullName = "${dataUser.name} ${dataUser.lastname}"
     val setPoints = "Puntos: ${dataUser.points}"
+
+    //Navegación
+    val ruteProfile = ProfileScreen.route
 
     Row(
         modifier
@@ -62,7 +73,9 @@ fun CardData( viewModel: UserViewModel, modifier: Modifier = Modifier) {
             PointsText(setPoints, Modifier.align(Alignment.Start))
         }
         Spacer(modifier = Modifier.width(4.dp))
-        ProfileImage({},Modifier.align(Alignment.CenterVertically))
+        ProfileImage({
+            navHostController.navigate(ruteProfile)
+        },Modifier.align(Alignment.CenterVertically))
     }
 }
 
@@ -97,12 +110,13 @@ fun ProfileImage(onProfileImage: () -> Unit, modifier: Modifier = Modifier) {
             .size(80.dp)
             .border(3.dp, MaterialTheme.colors.secondary, CircleShape)
             .clip(CircleShape)
-            .clickable { onProfileImage }
+            .clickable { onProfileImage() }
     )
 }
 
 @Composable
-fun BodyData(modifier: Modifier = Modifier){
+fun BodyData(navHostController: NavHostController,modifier: Modifier = Modifier){
+    val ruteChat = ModuleDestination.ChatScreen.route
     Surface(
         shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
         modifier = modifier.fillMaxSize()
@@ -118,7 +132,7 @@ fun BodyData(modifier: Modifier = Modifier){
                 CardInformation("IOT", R.drawable.ic_iot_70,{})
             }
             Row{
-                CardInformation("Mensajes", R.drawable.ic_message_70,{})
+                CardInformation("Mensajes", R.drawable.ic_message_70,{navHostController.navigate(ruteChat)})
                 CardInformation("Nivel ACU", R.drawable.ic_level_70,{})
             }
 
@@ -163,11 +177,5 @@ fun CardInformation(
     }
 }
 
-@Preview
-@Composable
-fun BodyDataPreview(){
-    ReCookOilTheme {
-        BodyData()
-    }
-}
+
 

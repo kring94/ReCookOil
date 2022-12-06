@@ -22,10 +22,12 @@ fun MainScreen(viewModel: UserViewModel){
     )
 
     Scaffold(scaffoldState = scaffoldState,
-        bottomBar = { NavigationBottom(navHostController,navigationItem) },
+        bottomBar = {
+            NavigationBottom(navHostController,navigationItem)
+                    },
         floatingActionButton = { Fab(scope, scaffoldState) },
         isFloatingActionButtonDocked = true,
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.Center
     ){
         NavigationHost(navHostController = navHostController, viewModel = viewModel)
     }
