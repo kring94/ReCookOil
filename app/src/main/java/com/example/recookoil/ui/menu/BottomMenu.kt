@@ -4,13 +4,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
+import com.example.recookoil.ui.chat.ChatViewModel
 import com.example.recookoil.ui.menu.components.Fab
 import com.example.recookoil.ui.menu.components.NavigationBottom
 import com.example.recookoil.ui.menu.MenuDestination.*
 import com.example.recookoil.ui.profile.UserViewModel
 
 @Composable
-fun MainScreen(viewModel: UserViewModel){
+fun MainScreen(viewModel: UserViewModel, chatViewModel: ChatViewModel){
     val navHostController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -29,7 +30,7 @@ fun MainScreen(viewModel: UserViewModel){
         isFloatingActionButtonDocked = true,
         floatingActionButtonPosition = FabPosition.Center
     ){
-        NavigationHost(navHostController = navHostController, viewModel = viewModel)
+        NavigationHost(navHostController = navHostController, viewModel = viewModel, chatViewModel = chatViewModel)
     }
 }
 

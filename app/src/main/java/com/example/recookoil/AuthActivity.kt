@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import com.example.recookoil.ui.chat.ChatViewModel
 import com.example.recookoil.ui.home.HomeActivity
 import com.example.recookoil.ui.login.ui.LoginScreen
 import com.example.recookoil.ui.login.LoginViewModel

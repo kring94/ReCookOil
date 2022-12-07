@@ -1,5 +1,6 @@
 package com.example.recookoil.repositories
 
+import android.util.Log
 import com.example.recookoil.constants.FirebaseConstants.MESSAGES_COLLECTION
 import com.example.recookoil.constants.FirebaseConstants.SENDER
 import com.example.recookoil.model.Message
@@ -67,23 +68,41 @@ constructor(
         }
     }
 
+    fun getMessageList(userId: String) :Flow <Result<List<Message>>> = flow {
+        try {
+            emit(Result.Loading<List<Message>>())
+
+            val chatList = chatList.document(userId).collection(MESSAGES_COLLECTION).get().await().map { document ->
+                document.toObject(Message::class.java)
+            }
+
+            emit(Result.Success<List<Message>>(data = chatList))
+
+        }catch(e: Exception){
+            emit(Result.Error(message = e.localizedMessage ?: "Error Desconocido"))
+        }
+    }
+
+    fun sendNewMessage(message: String, userId: String){
+        val idMessages = UUID.randomUUID().toString()
+        try{
+            val currentMessage = Message(SENDER, message, Date())
+            chatList.document(userId).collection(MESSAGES_COLLECTION).document(idMessages).set(currentMessage)
+
+        }   catch (e: java.lang.Exception){
+            e.printStackTrace()
+        }
+    }
+
     //Función para actualizar datos de usuario ne firebase
-    fun updateUser(userId: String, user: User){
+    fun updateUser(userId: String, user: User) {
         try {
             val map = mapOf(
                 "phoneNumber" to user.phoneNumber,
                 "address" to user.address
             )
             userList.document(userId).update(map)
-        } catch (e: Exception){
-            e.printStackTrace()
-        }
-    }
-    // Eliminación de usuarion en firebase
-    fun deleteUser(userId: String){
-        try {
-            userList.document(userId).delete()
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

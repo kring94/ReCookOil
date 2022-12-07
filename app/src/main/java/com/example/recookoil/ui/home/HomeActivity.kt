@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
+import com.example.recookoil.ui.chat.ChatViewModel
 import com.example.recookoil.ui.menu.MainScreen
 import com.example.recookoil.ui.profile.UserViewModel
 import com.example.recookoil.ui.theme.ReCookOilTheme
@@ -19,6 +20,7 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val viewModel: UserViewModel by viewModels()
+        val chatViewModel: ChatViewModel by viewModels()
 
         setContent {
             ReCookOilTheme {
@@ -27,7 +29,7 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen(viewModel)
+                    MainScreen(viewModel, chatViewModel)
                 }
             }
         }

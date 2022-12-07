@@ -1,4 +1,4 @@
-package com.example.recookoil.ui.menu
+package com.example.recookoil.ui.menu.modules
 
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
