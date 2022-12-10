@@ -59,7 +59,7 @@ fun CardData(
 
     Row(
         modifier
-            .size(width = 400.dp, height = 150.dp)
+            .size(width = 400.dp, height = 200.dp)
             .padding(8.dp)
 
     ) {
@@ -115,7 +115,12 @@ fun ProfileImage(onProfileImage: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 fun BodyData(navHostController: NavHostController,modifier: Modifier = Modifier){
+
     val ruteChat = ModuleDestination.ChatScreen.route
+    val ruteIot = ModuleDestination.IotScreen.route
+    val ruteHistory = ModuleDestination.HistoryScreen.route
+    val ruteLevelAcu = ModuleDestination.AcuLevelScreen.route
+
     Surface(
         shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
         modifier = modifier.fillMaxSize()
@@ -123,16 +128,16 @@ fun BodyData(navHostController: NavHostController,modifier: Modifier = Modifier)
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.padding(0.dp,0.dp,0.dp,50.dp)
+            modifier = modifier.padding(0.dp,0.dp,0.dp,80.dp)
 
         ) {
             Row{
-                CardInformation("Historial de recolección", R.drawable.ic_stats_70,{})
-                CardInformation("IOT", R.drawable.ic_iot_70,{})
+                CardInformation("Historial de recolección", R.drawable.ic_stats_70,{navHostController.navigate(ruteHistory)})
+                CardInformation("IOT", R.drawable.ic_iot_70,{navHostController.navigate(ruteIot)})
             }
             Row{
-                CardInformation("Mensajes", R.drawable.ic_message_70,{navHostController.navigate(ruteChat)})
-                CardInformation("Nivel ACU", R.drawable.ic_level_70,{})
+                CardInformation("Chat", R.drawable.ic_message_70,{navHostController.navigate(ruteChat)})
+                CardInformation("Nivel ACU", R.drawable.ic_level_70,{navHostController.navigate(ruteLevelAcu)})
             }
 
         }

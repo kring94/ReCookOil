@@ -1,5 +1,6 @@
 package com.example.recookoil.ui.chat.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,16 +29,15 @@ import com.example.recookoil.ui.theme.White
 
 @Composable
 fun ChatScreen(navHostController: NavHostController, viewModel: ChatViewModel) {
+    //Log.d("Chat", navHostController.currentDestination?.route.toString())
     Scaffold (
-        bottomBar = {},
+        content = { ChatBody(viewModel = viewModel)},
         topBar = {
             TopAppBar() {
-                NavigationTopAppBar(navHostController = navHostController, "Mensajes")
+                NavigationTopAppBar(navHostController = navHostController, "Chat")
             }
         }
-            ){
-        ChatBody(viewModel)
-    }
+            )
 }
 
 @Composable
@@ -55,12 +55,16 @@ fun ChatBody(viewModel: ChatViewModel, modifier: Modifier = Modifier){
 
             BodyListMessages(listMessages, modifier = Modifier.weight(8.0f))
             Row(
-                modifier = Modifier.weight(3.0f).heightIn(70.dp)
+                modifier = Modifier
+                    .weight(3.0f)
+                    .heightIn(70.dp)
             ) {
                 LabelMessage(message){
                     viewModel.onMessageChanged(it)
                 }
-                Spacer(modifier = Modifier.padding(12.dp).align(Alignment.CenterVertically))
+                Spacer(modifier = Modifier
+                    .padding(12.dp)
+                    .align(Alignment.CenterVertically))
                 FabSendMessage(modifier = Modifier.align(Alignment.CenterVertically)){
                     viewModel.sendMessage(message)
                     viewModel.onMessageChanged("")
@@ -94,7 +98,7 @@ fun UserBubble(message: String, date: String,modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = message,
-            textAlign = TextAlign.Start,
+            textAlign = TextAlign.End,
             softWrap = true,
             color = White,
             modifier = modifier
@@ -118,7 +122,7 @@ fun NoUserBubble(message: String, date: String,modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = message,
-            textAlign = TextAlign.End,
+            textAlign = TextAlign.Start,
             softWrap = true,
             color = White,
             modifier = modifier

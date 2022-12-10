@@ -1,6 +1,7 @@
 package com.example.recookoil.repositories
 
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.recookoil.constants.FirebaseConstants.MESSAGES_COLLECTION
 import com.example.recookoil.constants.FirebaseConstants.SENDER
 import com.example.recookoil.model.Message
@@ -12,6 +13,8 @@ import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -34,8 +37,8 @@ constructor(
         val idMessages = UUID.randomUUID().toString()
         try{
             userList.document(user.id).set(user)
-            val initialMessage = Message(SENDER,"Usuario: ${user.name} ${user.lastname}", Date())
-            chatList.document(user.id).collection(MESSAGES_COLLECTION).document(idMessages).set(initialMessage)
+//            val initialMessage = Message(SENDER,"Usuario: ${user.name} ${user.lastname}", Date())
+//            chatList.document(user.id).collection(MESSAGES_COLLECTION).document(idMessages).set(initialMessage)
 
         }   catch (e: java.lang.Exception){
             e.printStackTrace()
@@ -83,8 +86,14 @@ constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun sendNewMessage(message: String, userId: String){
         val idMessages = UUID.randomUUID().toString()
+
+        val now = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm 'del' dd/MM/yyyy")
+        val currentDate = formatter.format(now)
+
         try{
             val currentMessage = Message(SENDER, message, Date())
             chatList.document(userId).collection(MESSAGES_COLLECTION).document(idMessages).set(currentMessage)
