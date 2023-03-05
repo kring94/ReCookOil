@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900819333980",
+    "project_id": "recookoil",
+    "storage_bucket": "recookoil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900819333980:android:377037909073ebeaa5c799",
+        "android_client_info": {
+          "package_name": "com.example.recookoil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900819333980-bb7tv4nae1s00flh0e2nsupo6t3i07q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn6nJMtm7vw79jo4F3Gra02SGMG3YQhlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900819333980-bb7tv4nae1s00flh0e2nsupo6t3i07q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
